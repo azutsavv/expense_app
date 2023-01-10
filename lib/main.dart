@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expense_app/home.dart';
+import 'package:personal_expense_app/models/home.dart';
 
 void main() {
   runApp(const MyApp());
