@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:personal_expense_app/widgets/transaction_list.dart';
-
 import 'new_transaction.dart';
 
 class user_transaction extends StatefulWidget {
