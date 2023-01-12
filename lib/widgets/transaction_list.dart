@@ -5,22 +5,16 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_expense_app/widgets/transaction.dart';
 
-class transacrion_list extends StatefulWidget {
-  const transacrion_list({super.key});
+class transacrion_list extends StatelessWidget {
+   transacrion_list({super.key});
 
-  @override
-  State<transacrion_list> createState() => _transacrion_listState();
-}
-
-class _transacrion_listState extends State<transacrion_list> {
   final List<Transaction> usertransaction = [
     Transaction(amount: 50, date: DateTime.now(), id: 't1', title: 'samosa'),
     Transaction(amount: 10, date: DateTime.now(), id: 't2', title: 'rickshaw'),
     Transaction(amount: 200, date: DateTime.now(), id: 't3', title: 'dinner'),
     Transaction(amount: 30, date: DateTime.now(), id: 't4', title: 'Breakfast'),
   ];
-  
- 
+
   @override
   Widget build(BuildContext context) {
     return Column(
