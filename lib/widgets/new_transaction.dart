@@ -2,11 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class new_transaction extends StatelessWidget {
+class new_transaction extends StatefulWidget {
   final Function addtx;
-  final titlecontroller = TextEditingController();
-  final amountcontroller = TextEditingController();
+
   new_transaction({super.key, required this.addtx});
+
+  @override
+  State<new_transaction> createState() => _new_transactionState();
+}
+
+class _new_transactionState extends State<new_transaction> {
+  final titlecontroller = TextEditingController();
+
+  final amountcontroller = TextEditingController();
+
+  void submitdata() {
+    final entdtitle = titlecontroller.text;
+    final entdamt = double.parse(amountcontroller.text);
+
+    if (entdtitle.isEmpty || entdamt <= 0) {
+      return;
+    }
+
+    widget.addtx(
+      titlecontroller.text,
+      double.parse(amountcontroller.text),
+    );
+
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +49,19 @@ class new_transaction extends StatelessWidget {
               //   title = value;
 
               // },
+              onTap: () => submitdata,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'amount'),
               //onChanged: (value) => amount = value,
               controller: amountcontroller,
+              keyboardType: TextInputType.number,
+              onTap: () => submitdata,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    elevation: 10, backgroundColor: Colors.amber),
-                onPressed: (() {
-                  addtx(titlecontroller.text,double.parse( amountcontroller.text),);
-                }),
+                    elevation: 10, backgroundColor: Theme.of(context).primaryColorDark),
+                onPressed: submitdata,
                 child: Text(
                   'Add Tx',
                   style: TextStyle(
