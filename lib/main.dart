@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:personal_expense_app/fonts/font1.dart';
 import 'package:personal_expense_app/widgets/homepage.dart';
 
 void main() {
@@ -10,10 +12,15 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.teal),
+      theme:
+       ThemeData(
+        primarySwatch: Colors.teal,
+        fontFamily:GoogleFonts.bizUDPMincho().toString() ,
+        ),
+      
       initialRoute: 'welcome',
       routes: {
         'welcome' :(context) => homepage(),
