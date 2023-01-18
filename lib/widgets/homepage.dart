@@ -16,8 +16,8 @@ class homepage extends StatefulWidget {
 
 List<Transaction> get _recenttransaction{
   return _usertransaction.where((element) {
-    return element.date.isAfter(DateTime.now().subtract(Duration(days:7)))
-  },)
+    return element.date.isAfter(DateTime.now().subtract(Duration(days:7)));
+  },).toList();
 }
 
 

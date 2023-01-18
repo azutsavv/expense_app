@@ -1,10 +1,11 @@
-import 'dart:core';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_expense_app/models/transaction.dart';
+import 'package:personal_expense_app/widgets/chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recenttransaction;
@@ -23,18 +24,33 @@ class Chart extends StatelessWidget {
         }
       }
 
-      print(DateFormat.E(weekday));
+      print(DateFormat.E().format(weekday));
       print(totalamount);
-      return {'day': DateFormat.E(weekday), 'amount': totalamount};
+      return {'day': DateFormat.E().format(weekday), 'amount': totalamount};
+    });
+  }
+
+  double get spending_total {
+    return groupedvaluetransaction.fold(0.0, (sum, element) {
+      return sum + (element['amount'] as double);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print(groupedvaluetransaction);
     return Card(
-      elevation: 5,
-      margin: EdgeInsets.all(2),
-      child: Row(children: []),
-    );
+        elevation: 5,
+        margin: EdgeInsets.all(2),
+        child: Row(
+          children: groupedvaluetransaction.map((data) {
+            return chartbar(
+              spending_percentage_amount:
+                  ((data['amount'] as double) / spending_total),
+              spending_amt: data['amount'] as double,
+              lable: data['day'].toString(),
+            );
+          }).toList(),
+        ));
   }
 }
