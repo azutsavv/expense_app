@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -27,7 +25,7 @@ class Chart extends StatelessWidget {
       print(DateFormat.E().format(weekday));
       print(totalamount);
       return {'day': DateFormat.E().format(weekday), 'amount': totalamount};
-    });
+    }).reversed.toList();
   }
 
   double get spending_total {
@@ -41,16 +39,25 @@ class Chart extends StatelessWidget {
     print(groupedvaluetransaction);
     return Card(
         elevation: 5,
-        margin: EdgeInsets.all(2),
-        child: Row(
-          children: groupedvaluetransaction.map((data) {
-            return chartbar(
-              spending_percentage_amount:
-                  ((data['amount'] as double) / spending_total),
-              spending_amt: data['amount'] as double,
-              lable: data['day'].toString(),
-            );
-          }).toList(),
+        margin: EdgeInsets.all(20),
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: groupedvaluetransaction.map((data) {
+              return Flexible(
+                fit: FlexFit.tight,
+                
+                child: chartbar(
+                  spending_percentage_amount: 0.0.isFinite?0.0: // still an error return type is double but widget take bool value
+                      ((data['amount'] as double) / spending_total),
+                  spending_amt: data['amount'] as double,
+                  lable: data['day'].toString(),
+                ),
+              );
+            }).toList(),
+          ),
         ));
   }
 }
+

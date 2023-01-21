@@ -14,13 +14,13 @@ class homepage extends StatefulWidget {
   State<homepage> createState() => _homepageState();
   final List<Transaction> _usertransaction = [];
 
-List<Transaction> get _recenttransaction{
-  return _usertransaction.where((element) {
-    return element.date.isAfter(DateTime.now().subtract(Duration(days:7)));
-  },).toList();
-}
-
-
+  List<Transaction> get _recenttransaction {
+    return _usertransaction.where(
+      (element) {
+        return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      },
+    ).toList();
+  }
 }
 
 class _homepageState extends State<homepage> {
@@ -28,6 +28,7 @@ class _homepageState extends State<homepage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
         title: Text('Expense Manager'),
         actions: [
@@ -40,7 +41,7 @@ class _homepageState extends State<homepage> {
         child: Container(
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Chart(_usertransaction),
-            SingleChildScrollView(child: transaction_list(_usertransaction))
+            SingleChildScrollView(child: transaction_list(_usertransaction,_deletetrnx))
           ]),
         ),
       ),
@@ -73,5 +74,11 @@ class _homepageState extends State<homepage> {
         builder: ((_) {
           return new_transaction(addtx: _addTransaction);
         }));
+  }
+
+  void _deletetrnx(String id) {
+    setState(() {
+      return _usertransaction.removeWhere((element) => element.id == id);
+    });
   }
 }

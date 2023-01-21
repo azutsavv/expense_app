@@ -7,67 +7,62 @@ import 'package:personal_expense_app/models/transaction.dart';
 
 class transaction_list extends StatelessWidget {
   final List<Transaction> transaction;
-  transaction_list(this.transaction);
+  final Function deletetx;
+  transaction_list(this.transaction, this.deletetx);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      child: transaction.isEmpty?Column(
-        children: [
-          Text('no transaction yet'),
-          Container(
-            height: 200,
-            child: Image.asset('assets/images/waiting.png', fit: BoxFit.cover,))
-        ],
-      ): ListView.builder(
-          itemCount: transaction.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: Container(
-                margin: EdgeInsets.all(3),
-                decoration: BoxDecoration(),
-                child: Row(
-                  children: [
-                    Container(
-                      // width: 40,
-                      // height: 30,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.black)),
-                      child: Text(
-                        '\$ ${transaction[index].amount.toStringAsFixed(2)}',
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Container(
-                      //width: double.nan,
-                      decoration: BoxDecoration(
-                          // border: Border.all(width: 2 ,color: Colors.indigo)
-                          ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transaction[index].title,
+      child: transaction.isEmpty
+          ? Column(
+              children: [
+                Text('no transaction yet'),
+                Container(
+                    height: 200,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ))
+              ],
+            )
+          : ListView.builder(
+              itemCount: transaction.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: FittedBox(
+                          child: Text(
+                            '\$${transaction[index].amount}',
                             style: TextStyle(
-                                color: Theme.of(context).primaryColorDark,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                          Text(DateFormat('dd-MM-yyyy')
-                              .format(transaction[index].date))
-                        ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-            );
-          }),
+                    ),
+                    title: Text(
+                      transaction[index].title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    subtitle: Text(
+                        DateFormat.yMMMd().format(transaction[index].date)),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete_sharp, color: Colors.red),
+                      onPressed: () => deletetx(transaction[index].id),
+                    ),
+                  ),
+                );
+              }),
     );
   }
 }

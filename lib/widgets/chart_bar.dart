@@ -13,7 +13,9 @@ class chartbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text("\$${spending_amt.toStringAsFixed(0)}"),
+      Container(
+        height: 20,
+        child: Text("\$${spending_amt.toStringAsFixed(0)}")),
      Container(
       height: 60,
       width: 10,
