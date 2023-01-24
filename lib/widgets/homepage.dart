@@ -9,7 +9,7 @@ import 'package:personal_expense_app/widgets/transaction_list.dart';
 
 class homepage extends StatefulWidget {
   homepage({super.key});
-
+ 
   @override
   State<homepage> createState() => _homepageState();
   final List<Transaction> _usertransaction = [];
@@ -24,26 +24,53 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+   bool _show_chart = false;
   @override
   Widget build(BuildContext context) {
+    final appbar = AppBar(
+      title: Text('Expense Manager'),
+      actions: [
+        IconButton(
+            onPressed: () => _addnew_transaction(context),
+            icon: Icon(Icons.add))
+      ],
+    );
     return SafeArea(
         child: Scaffold(
-          extendBodyBehindAppBar: false,
+      extendBodyBehindAppBar: false,
       backgroundColor: Colors.grey.shade900,
-      appBar: AppBar(
-      
-        title: Text('Expense Manager'),
-        actions: [
-          IconButton(
-              onPressed: () => _addnew_transaction(context),
-              icon: Icon(Icons.add))
-        ],
-      ),
+      appBar: appbar,
       body: SingleChildScrollView(
         child: Container(
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Chart(_usertransaction),
-            SingleChildScrollView(child: transaction_list(_usertransaction,_deletetrnx))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('show chart'),
+                Switch(
+                  value: _show_chart,
+                  onChanged: (value) {
+                    setState(() {
+                      _show_chart = value;
+                    });
+                  },
+                )
+              ],
+            ),
+            _show_chart ? Container(
+                height: (MediaQuery.of(context).size.height -
+                        appbar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.4,
+                child: Chart(_usertransaction))
+                :Container(
+                
+                height: (MediaQuery.of(context).size.height -
+                        appbar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.6,
+                child: SingleChildScrollView(
+                  child: transaction_list(_usertransaction, _deletetrnx)))
           ]),
         ),
       ),

@@ -12,12 +12,17 @@ class transaction_list extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      child: transaction.isEmpty
-          ? Column(
+    return transaction.isEmpty
+        ? LayoutBuilder(builder: (ctx, constraint) {
+            return Column(
               children: [
-                Text('no transaction yet' , style: TextStyle (  fontSize: 17,color: Colors.white, fontWeight: FontWeight.bold), ),
+                Text(
+                  'no transaction yet',
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
                 Container(
                     height: 200,
                     child: Image.asset(
@@ -25,44 +30,44 @@ class transaction_list extends StatelessWidget {
                       fit: BoxFit.cover,
                     ))
               ],
-            )
-          : ListView.builder(
-              itemCount: transaction.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: FittedBox(
-                          child: Text(
-                            '\$${transaction[index].amount}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
+            );
+          })
+        : ListView.builder(
+            itemCount: transaction.length,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: FittedBox(
+                        child: Text(
+                          '\$${transaction[index].amount}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         ),
                       ),
                     ),
-                    title: Text(
-                      transaction[index].title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    subtitle: Text(
-                        DateFormat.yMMMd().format(transaction[index].date)),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete_sharp, color: Colors.red),
-                      onPressed: () => deletetx(transaction[index].id),
+                  ),
+                  title: Text(
+                    transaction[index].title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
-                );
-              }),
-    );
+                  subtitle:
+                      Text(DateFormat.yMMMd().format(transaction[index].date)),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete_sharp, color: Colors.red),
+                    onPressed: () => deletetx(transaction[index].id),
+                  ),
+                ),
+              );
+            });
   }
 }
