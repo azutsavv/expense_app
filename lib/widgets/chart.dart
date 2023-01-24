@@ -45,15 +45,18 @@ class Chart extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: groupedvaluetransaction.map((data) {
+              spending_total==0.0?0.0:((data['amount']as double) / spending_total );
+              
               return Flexible(
                 fit: FlexFit.tight,
-                
                 child: chartbar(
-                  spending_percentage_amount: 0.0.isFinite?0.0: // still an error return type is double but widget take bool value
+                  spending_percentage_amount :  // still an error return type is double but widget take bool value
                       ((data['amount'] as double) / spending_total),
                   spending_amt: data['amount'] as double,
                   lable: data['day'].toString(),
+                 
                 ),
+                
               );
             }).toList(),
           ),

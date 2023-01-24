@@ -28,8 +28,10 @@ class _homepageState extends State<homepage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          extendBodyBehindAppBar: false,
       backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
+      
         title: Text('Expense Manager'),
         actions: [
           IconButton(

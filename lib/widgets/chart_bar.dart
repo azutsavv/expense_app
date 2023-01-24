@@ -8,7 +8,7 @@ class chartbar extends StatelessWidget {
   final double spending_amt;
   final double spending_percentage_amount;
 
-  const chartbar({ required this.lable, required this.spending_amt, required this.spending_percentage_amount});
+  const chartbar({ required this.lable, required this.spending_amt,  this.spending_percentage_amount = 0.0});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class chartbar extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),),
 
-        FractionallySizedBox(heightFactor: spending_percentage_amount,
+        FractionallySizedBox(heightFactor: spending_percentage_amount.toDouble(),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.amber,
