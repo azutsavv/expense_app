@@ -53,56 +53,62 @@ class _new_transactionState extends State<new_transaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        margin: EdgeInsets.only(left: 10, right: 10),
-        padding: EdgeInsets.only(left: 10, right: 10),
-        child: Column(
-          children: [
-            TextField(
-              autocorrect: true,
-              decoration: InputDecoration(labelText: 'title'),
-              controller: titlecontroller,
-              // onChanged: (value) {
-              //   title = value;
-
-              // },
-              onTap: () => submitdata,
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'amount'),
-              //onChanged: (value) => amount = value,
-              controller: amountcontroller,
-              keyboardType: TextInputType.number,
-              onTap: () => submitdata,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text( DateFormat.yMMMd().format(datepicked),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  ElevatedButton(
-                      onPressed: presentdatepicker,
-                      
-                      child: Icon(Icons.calendar_month_outlined))
-                ],
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          //margin: EdgeInsets.only(left: 10, right: 10),
+          padding: EdgeInsets.only(
+            left: 10,
+            right: 10,
+            top: 10 ,
+            bottom:MediaQuery.of(context).viewInsets.bottom +10 ),
+          child: Column(
+            children: [
+              TextField(
+                autocorrect: true,
+                decoration: InputDecoration(labelText: 'title'),
+                controller: titlecontroller,
+                // onChanged: (value) {
+                //   title = value;
+    
+                // },
+                onTap: () => submitdata,
               ),
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 10,
-                    backgroundColor: Theme.of(context).primaryColorDark),
-                onPressed: submitdata,
-                child: Text(
-                  'Add Tx',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                ))
-          ],
+              TextField(
+                decoration: InputDecoration(labelText: 'amount'),
+                //onChanged: (value) => amount = value,
+                controller: amountcontroller,
+                keyboardType: TextInputType.number,
+                onTap: () => submitdata,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text( DateFormat.yMMMd().format(datepicked),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    ElevatedButton(
+                        onPressed: presentdatepicker,
+                        
+                        child: Icon(Icons.calendar_month_outlined))
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 10,
+                      backgroundColor: Theme.of(context).primaryColorDark),
+                  onPressed: submitdata,
+                  child: Text(
+                    'Add Tx',
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
         ),
       ),
     );
