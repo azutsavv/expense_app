@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -37,14 +39,16 @@ class _homepageState extends State<homepage> {
             icon: Icon(Icons.add))
       ],
     );
-    final trans_widget=Container(    // transaction list widget//
-                    height: (MediaQuery.of(context).size.height -
-                            appbar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.6,
-                    child: SingleChildScrollView(
-                        child: transaction_list(_usertransaction, _deletetrnx)));
-    return SafeArea(
+    final trans_widget = Container(
+        // transaction list widget//
+        // height: (MediaQuery.of(context).size.height -
+        //         appbar.preferredSize.height -
+        //         MediaQuery.of(context).padding.top) *
+        //     0.6,
+        height: 600,
+        child: SingleChildScrollView(
+            child: transaction_list(_usertransaction, _deletetrnx)));
+       return SafeArea(
         child: Scaffold(
       extendBodyBehindAppBar: false,
       backgroundColor: Colors.grey.shade900,
@@ -55,38 +59,42 @@ class _homepageState extends State<homepage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('show chart'),
                 if (orientaion)
-                  Switch(
-                    // new way added to flutter in 2.2.2 we can use if function to check the condition without using paraenthesis {} if contditon holds true then it will be executed otherwise no
-                    value: _show_chart,
-                    onChanged: (value) {
-                      setState(() {
-                        _show_chart = value;
-                      });
-                    },
-                  )
+                  
+                    
+                    Switch.adaptive(
+                      // new way added to flutter in 2.2.2 we can use if function to check the condition without using paraenthesis {} if contditon holds true then it will be executed otherwise no
+                      value: _show_chart,
+                      onChanged: (value) {
+                        setState(() {
+                          _show_chart = value;
+                        });
+                      },
+                    ),
+                  
               ],
             ),
-            if(!orientaion) Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appbar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.4,
-                    child: Chart(_usertransaction)),
-                    if(!orientaion)trans_widget,
-            if(orientaion)_show_chart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appbar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.4,
-                    child: Chart(_usertransaction))
-                : trans_widget
+            if (!orientaion)
+              SizedBox(
+                  height: (MediaQuery.of(context).size.height -
+                          appbar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.4,
+                  child: Chart(_usertransaction)),
+            if (!orientaion) trans_widget,
+            if (orientaion)
+              _show_chart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appbar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.4,
+                      child: Chart(_usertransaction))
+                  : trans_widget
           ]),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: Platform.isIOS ? Container(): FloatingActionButton(
         onPressed: () => _addnew_transaction(context),
         child: Icon(Icons.add),
       ),

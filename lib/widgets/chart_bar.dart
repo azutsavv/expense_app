@@ -23,7 +23,7 @@ class chartbar extends StatelessWidget {
               height: constraint.maxHeight*0.15,
                child: FittedBox(child: Text("\$${spending_amt.toStringAsFixed(0)}"))
                ),
-          Container(
+          SizedBox(
             height:constraint.maxHeight*0.6,
             width: 10,
             child: Stack(
